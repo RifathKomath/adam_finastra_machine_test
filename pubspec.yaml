@@ -1,0 +1,63 @@
+name: adam_finastra_machinetest
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.8
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+  get: ^4.7.3
+  flutter_screenutil: ^5.9.3
+  http_parser: ^4.1.2
+  http: ^1.6.0
+  shared_preferences: ^2.5.4
+  flutter_svg: ^2.2.3
+  lottie: ^3.3.2
+  pin_code_fields: ^8.0.1
+  intl: ^0.20.2
+  url_launcher: ^6.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^6.0.0
+
+
+flutter:
+
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+    - assets/lottie/
+    - assets/fonts/
+
+  # example:
+  fonts:
+     - family: DmSans
+       fonts:
+         - asset: assets/fonts/dm_sans_100.ttf
+         - asset: assets/fonts/dm_sans_200.ttf
+         - asset: assets/fonts/dm_sans_300.ttf
+         - asset: assets/fonts/dm_sans_400.ttf
+         - asset: assets/fonts/dm_sans_500.ttf
+         - asset: assets/fonts/dm_sans_600.ttf
+         - asset: assets/fonts/dm_sans_700.ttf
+         - asset: assets/fonts/dm_sans_800.ttf
+         - asset: assets/fonts/dm_sans_900.ttf
+  #
