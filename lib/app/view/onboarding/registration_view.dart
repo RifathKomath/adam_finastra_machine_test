@@ -205,7 +205,7 @@ class RegistrationView extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 16),
         child: Obx(
           () => AppButton(
             isLoaderBtn: controller.isLoading.value,
