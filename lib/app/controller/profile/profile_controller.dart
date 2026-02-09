@@ -91,8 +91,6 @@ class ProfileController extends GetxController {
         final result = LoginResponse.fromJson(response.response);
         await SharedPref().save(key: "userlogdata", value: result.user?.toJson());
         await SharedPref().getLoginedUserData();
-        await SharedPref().saveAccessToken(result.token ?? "");
-        await SharedPref().loadAccessToken();
         SuccessDialog.show(
           context,
           message: "Profile Updated successfully",
