@@ -158,7 +158,7 @@ class OnboardingController extends GetxController {
 
   final loginFormKey = GlobalKey<FormState>();
 
-  void login({required BuildContext context}) async {
+  void login({required BuildContext context }) async {
     try {
       isLoading.value = true;
       final requestBody = LoginRequest(

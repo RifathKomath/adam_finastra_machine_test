@@ -1,4 +1,5 @@
 import 'package:adam_finastra_machinetest/app/controller/home/home_controller.dart';
+import 'package:adam_finastra_machinetest/app/view/home/sub_category_view.dart';
 import 'package:adam_finastra_machinetest/app/view/profile/profile_view.dart';
 import 'package:adam_finastra_machinetest/config.dart';
 import 'package:adam_finastra_machinetest/shared/utils/screen_utils.dart';
@@ -11,6 +12,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../../core/extensions/margin_extension.dart';
 import '../../../core/style/app_text_style.dart';
 import '../../../core/style/colors.dart';
+import 'sub_course_view.dart';
 import 'widgets/category_container.dart';
 import 'widgets/course_card.dart';
 import 'widgets/live_container.dart';
@@ -56,11 +58,28 @@ class HomeView extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final category = controller.categoryList[index];
                             final sub = category.subcategories?.first;
-                            return HomeCategoryCard(
-                              image: sub?.image ?? "",
-                              title: category.name ?? "",
-                              count: "${category.courseCount} Courses",
-                              subTitle: sub?.name ?? "",
+                            return GestureDetector(
+                              onTap: () {
+                                Screen.open(
+                                  SubCategoryView(
+                                    title: category.name ?? "",
+                                    subCategories: category.subcategories ?? [],
+                                  ),
+                                );
+                              },
+
+                              child: Hero(
+                                tag: sub?.name ?? "",
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: HomeCategoryCard(
+                                    image: sub?.image ?? "",
+                                    title: category.name ?? "",
+                                    count: "${category.courseCount} Courses",
+                                    subTitle: sub?.name ?? "",
+                                  ),
+                                ),
+                              ),
                             );
                           },
                         ),
@@ -104,27 +123,42 @@ class HomeView extends StatelessWidget {
                         ),
                       ),
                       15.h.hBox,
-                      SizedBox(
-                        height: 200,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: controller.popularCourseList.length,
-                          separatorBuilder: (_, __) => SizedBox(width: 12),
-                          itemBuilder: (context, index) {
-                            final course = controller.popularCourseList[index];
-                            return CourseCard(
-                              imageUrl: course.courseImage ?? "",
-                              courseName: course.courseName ?? "",
-                              price: course.price ?? 0,
-                              offerPrice: course.offerPrice ?? 0,
-                              tutorImageUrl: course.tutor?.profilePicture ?? "",
-                              tutorName: course.tutor?.name ?? "",
-                              rating: course.rating ?? 0,
-                              reviewCount: course.reviewCount ?? 0,
-                            );
-                          },
-                        ),
-                      ),
+                     SizedBox(
+  height: 200,
+  child: ListView.separated(
+    scrollDirection: Axis.horizontal,
+    itemCount: controller.popularCourseList.length,
+    separatorBuilder: (_, __) => const SizedBox(width: 12),
+    itemBuilder: (context, index) {
+      final course = controller.popularCourseList[index];
+
+      return GestureDetector(
+        onTap: () {
+          Screen.open(
+            SubCourseView(course: course),
+          );
+        },
+        child: Hero(
+          tag: course.id ?? "",
+          child: Material(
+            color: Colors.transparent,
+            child: CourseCard(
+              imageUrl: course.courseImage ?? "",
+              courseName: course.courseName ?? "",
+              price: course.price ?? 0,
+              offerPrice: course.offerPrice ?? 0,
+              tutorImageUrl: course.tutor?.profilePicture ?? "",
+              tutorName: course.tutor?.name ?? "",
+              rating: course.rating ?? 0,
+              reviewCount: course.reviewCount ?? 0,
+            ),
+          ),
+        ),
+      );
+    },
+  ),
+),
+
                       // Top Tutors >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                       15.h.hBox,
                       Text(

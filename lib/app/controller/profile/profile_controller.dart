@@ -2,6 +2,7 @@ import 'package:adam_finastra_machinetest/app/model/profile/update_request.dart'
 import 'package:adam_finastra_machinetest/app/view/profile/profile_view.dart';
 import 'package:adam_finastra_machinetest/shared/utils/screen_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:intl/intl.dart';
 
@@ -13,10 +14,12 @@ import '../../../core/style/colors.dart';
 import '../../../shared/widgets/app_success_dialog.dart';
 import '../../../shared/widgets/app_toast.dart';
 import '../../model/onboarding/login_response.dart';
+import '../onboarding/onboarding_controller.dart';
 
 class ProfileController extends GetxController {
   RxBool isLoading = false.obs;
   final formKey = GlobalKey<FormState>();
+  final OnboardingController controller = Get.put(OnboardingController());
   final TextEditingController fullNameCntrl = TextEditingController();
   final TextEditingController emailCntrl = TextEditingController();
   final TextEditingController phoneNoCntrl = TextEditingController();
@@ -88,19 +91,19 @@ class ProfileController extends GetxController {
         body: requestBody.toJson(),
       );
       if (response.success) {
-        final result = LoginResponse.fromJson(response.response);
-        await SharedPref().save(key: "userlogdata", value: result.user?.toJson());
-        await SharedPref().getLoginedUserData();
         SuccessDialog.show(
           context,
           message: "Profile Updated successfully",
           onComplete: () {
             Screen.close();
-           Screen.openClosingCurrent(ProfileView());
           },
         );
       } else {
-        showToast(response.msg.isNotEmpty ? response.msg : "Error while updating profile");
+        showToast(
+          response.msg.isNotEmpty
+              ? response.msg
+              : "Error while updating profile",
+        );
       }
     } catch (e) {
       print("Error while updating profile $e");
